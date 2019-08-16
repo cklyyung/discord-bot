@@ -1,4 +1,5 @@
 const kick = require('../commands/kick')
+const addWord = require('../commands/addWord')
 var { filter } = require('../filter')
 
 module.exports = (client, message) => {
@@ -14,5 +15,8 @@ module.exports = (client, message) => {
         } else {
             message.author.send(`Here's the current list of banned words: ${filter.list}`)
         }
+    }
+    else if (message.content.startsWith('!addWord')) {
+        return addWord(message)
     }
 }

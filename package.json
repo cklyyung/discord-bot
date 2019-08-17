@@ -20,7 +20,6 @@
   },
   "homepage": "https://github.com/cklyyung/discord-bot#readme",
   "dependencies": {
-    "bad-words": "^3.0.3",
     "dotenv": "^8.0.0"
   },
   "devDependencies": {

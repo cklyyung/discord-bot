@@ -23,5 +23,5 @@ export function listBannedWords() {
 
 export function containsBannedWord(message) {
     var lowerCaseMsg = message.toLowerCase()
-    return bannedWords.some(word => lowerCaseMsg.includes(word));
+    return bannedWords.find(word => lowerCaseMsg.includes(word));
 }

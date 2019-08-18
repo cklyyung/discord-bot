@@ -1,7 +1,7 @@
 const kick = require('../commands/kick')
 const listBannedWords = require('../commands/listBannedWords')
 const addWord = require('../commands/addWord')
-const filter = require('../filter')
+const removeWord = require('../commands/removeWord')
 
 module.exports = (client, message) => {
     if (message.content === '!hello') {
@@ -15,5 +15,8 @@ module.exports = (client, message) => {
     }
     else if (message.content.startsWith('!addWord')) {
         return addWord(message)
+    }
+    else if (message.content.startsWith('!removeWord')) {
+        return removeWord(message)
     }
 }

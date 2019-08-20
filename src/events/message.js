@@ -2,6 +2,7 @@ const kick = require('../commands/kick')
 const listBannedWords = require('../commands/listBannedWords')
 const addWord = require('../commands/addWord')
 const removeWord = require('../commands/removeWord')
+const censor = require('../commands/censor')
 const filter = require('../filter')
 
 module.exports = (client, message) => {
@@ -23,10 +24,7 @@ module.exports = (client, message) => {
             return removeWord(message)
         }
         else if (bannedWord !== undefined) {
-            message.reply(`Your message has been removed; ${bannedWord} is a banned word! Please use the command !bannedWords to check which words are banned.`)
-            message.delete()
-            .then(msg => console.log(`Deleted message with banned word ${bannedWord} by ${msg.author.username}`))
-            .catch(console.error);
+            return censor(message, bannedWord)
         }
     }
 }

@@ -1,11 +1,14 @@
 const redis = require('../redis.js')
 
+let maxWarnings = 3
+
 module.exports = (message, bannedWord) => {
+    let memberRole = message.guild.roles.find(r => r.name === 'member');
     message.delete()
     .then(msg => console.log(`Deleted message with banned word ${bannedWord} by ${msg.author.username}`))
     .catch(console.error);
 
-    var warningMessage = `Your message has been removed; ${bannedWord} is a banned word!`
+    message.reply(`Your message has been removed; ${bannedWord} is a banned word!`)
     const user = message.author.toString()
 
     redis.getKey(user, function(strikes) {
@@ -14,8 +17,17 @@ module.exports = (message, bannedWord) => {
             strikes = 0
         }
         strikes++
-        warningMessage = warningMessage.concat(` This is strike #${strikes}.`)
-        redis.storeKey(user, strikes)
-        message.reply(warningMessage)
+        let warningsLeft = Math.max(0, maxWarnings - strikes)
+        console.log(`Strike ${strikes}, ${warningsLeft} warnings left`)
+        if (warningsLeft > 0) {
+            redis.storeKey(user, strikes)
+            message.reply(`This is strike #${strikes}. You have ${warningsLeft} warnings left.`)
+        } else {
+            message.member.removeRole(memberRole).catch(console.error)
+            message.reply('No warnings left! 10 second timeout!')
+            setTimeout(function(){
+                message.member.addRole(memberRole).catch(console.error)
+            }, 10000)
+        }
     })
 }

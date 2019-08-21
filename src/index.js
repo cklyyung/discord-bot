@@ -1,7 +1,6 @@
 require('dotenv').config()
 const fs = require('fs')
 const Discord = require('discord.js')
-const redisClient = require('./redis')
 const client = new Discord.Client()
 
 fs.readdir('./src/events', (err, files) => {

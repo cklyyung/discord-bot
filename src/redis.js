@@ -9,13 +9,22 @@ client.on('error', function (err) {
     console.log('Something went wrong ' + err);
 });
 
-client.set('my test key', 'my test value', redis.print);
-client.get('my test key', function (error, result) {
-    if (error) {
-        console.log(error);
-        throw error;
-    }
-    console.log('GET result ->' + result);
-});
+export function storeKey(key, value) {
+    client.set(key, value, redis.print)
+}
 
-export { client }
+export function getKey(user, ret) {
+    client.get(user, function (error, result) {
+        if (result == null) {
+            console.log('Key doesn\'t exist')
+            ret(-1)
+        }
+        else if (error) {
+            console.log(error);
+            throw error;
+        } else {
+            console.log(`Fetched result ${result} for key ${user}`);
+            ret(result)
+        }
+    });
+}

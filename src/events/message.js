@@ -7,7 +7,6 @@ const filter = require('../filter')
 
 module.exports = (client, message) => {
     if (message.author.id != '610617739920408649') { // This is nicebot's user id
-        var bannedWord = filter.containsBannedWord(message.content)
         if (message.content === '!hello') {
             message.reply('Hello to you too!')
         }
@@ -23,8 +22,12 @@ module.exports = (client, message) => {
         else if (message.content.startsWith('!removeWord')) {
             return removeWord(message)
         }
-        else if (bannedWord !== undefined) {
-            return censor(message, bannedWord)
+        else {
+            filter.containsBannedWord(message.content, function(result) {
+                if (result) {
+                    return censor(message, result)
+                }
+            })
         }
     }
 }

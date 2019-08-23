@@ -1,6 +1,6 @@
 const redis = require('./redis')
 
-var banSetKey = 'BANNED_WORDS'
+const banSetKey = 'BANNED_WORDS'
 
 export function addWord(word, ret) {
     var lowerCaseWord = word.toLowerCase()

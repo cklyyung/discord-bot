@@ -5,9 +5,9 @@ module.exports = message => {
         console.log(bannedWords)
         console.log(bannedWords.size)
         if (bannedWords == undefined || bannedWords.length == 0) {
-            message.reply('Right now there are no banned words!')
+            return message.reply('Right now there are no banned words!')
         } else {
-            message.author.send(`Here's the current list of banned words: ${bannedWords}`)
+            return message.author.send(`Here's the current list of banned words: ${bannedWords}`)
         }
     })
 }

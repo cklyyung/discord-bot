@@ -7,7 +7,7 @@ export function addWord(word, ret) {
     redis.addSetItem(banSetKey, lowerCaseWord, ret)
 }
 
-export function removeWord(word) {
+export function removeWord(word, ret) {
     var lowerCaseWord = word.toLowerCase()
     redis.removeSetItem(banSetKey, lowerCaseWord, ret)
 }
@@ -17,7 +17,7 @@ export function listBannedWords(ret) {
 }
 
 export function containsBannedWord(message, ret) {
-    var lowerCaseMsg = message.toLowerCase()
+    var lowerCaseMsg = message.toLowerCase().split(' ')
     redis.getSet(banSetKey, function(bannedWords) {
         ret(bannedWords.find(word => lowerCaseMsg.includes(word)))
     })

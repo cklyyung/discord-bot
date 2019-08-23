@@ -27,6 +27,7 @@ module.exports = (message, bannedWord) => {
                 message.reply('No warnings left! 10 second timeout!'),
                 setTimeout(function(){
                     message.member.addRole(memberRole).catch(console.error)
+                    redis.storeKey(user, 0) // reset strikes to 0
                 }, 10000))
             .catch(console.error)
         }

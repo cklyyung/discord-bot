@@ -1,7 +1,7 @@
 const filter = require('../filter')
 
 module.exports = message => {
-    const regex = /!removeWord (.*)+/
+    const regex = /!removeWord (.*)+/i
     const matches = message.content.match(regex)
     if (matches == null) {
         return message.reply('Please supply a word to remove from the ban list')

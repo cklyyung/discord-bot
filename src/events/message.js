@@ -3,10 +3,11 @@ const listBannedWords = require('../commands/listBannedWords')
 const addWord = require('../commands/addWord')
 const removeWord = require('../commands/removeWord')
 const censor = require('../commands/censor')
+const roll = require('../commands/roll')
 const filter = require('../filter')
 
 const CommandEnum = Object.freeze({
-    'hello': 1, 'kick': 2, 'bannedWords': 3, 'addWord': 4, 'removeWord': 5
+    'hello': 1, 'kick': 2, 'bannedWords': 3, 'addWord': 4, 'removeWord': 5, 'roll': 6
 })
 
 module.exports = (client, message) => {
@@ -24,6 +25,8 @@ module.exports = (client, message) => {
                 return addWord(message)
             case CommandEnum.removeWord:
                 return removeWord(message)
+            case CommandEnum.roll:
+                return roll(message)
             default:
                 filter.containsBannedWord(message.content, function(result) {
                     if (result) {

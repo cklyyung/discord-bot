@@ -5,10 +5,7 @@ const removeWord = require('../commands/removeWord')
 const censor = require('../commands/censor')
 const roll = require('../commands/roll')
 const filter = require('../filter')
-
-const CommandEnum = Object.freeze({
-    'hello': 1, 'kick': 2, 'bannedWords': 3, 'addWord': 4, 'removeWord': 5, 'roll': 6
-})
+const { CommandEnum } = require('../commands/commandEnum')
 
 module.exports = (client, message) => {
     if (message.author.id != '610617739920408649') { // This is nicebot's user id
